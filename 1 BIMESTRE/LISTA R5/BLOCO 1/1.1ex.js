@@ -1,7 +1,7 @@
 class ContaBancaria{
-    constructor(nome){
+    constructor(nome, saldoInicial){
         this._titular = nome
-        this._saldo = 0
+        this._saldo = saldoInicial
     }
 
     depositar(valor){
@@ -19,14 +19,17 @@ class ContaBancaria{
     }
 
     exibirSaldo(){
-        return `Titular: ${this._titular} | Saldo ${this._saldo}`
+        return `Titular: ${this._titular} | Saldo: ${this._saldo.toFixed(2)}`
     }
 }
 
-const joao = new ContaBancaria('João')
-
+const joao = new ContaBancaria('João',100)
 joao.depositar(5000)
-console.log(joao.exibirSaldo())
 
-joao.sacar(6000)
+
+const gabriel = new ContaBancaria('Gabriel', 1000)
+gabriel.sacar(10000)
+
+
+console.log(gabriel.exibirSaldo())
 console.log(joao.exibirSaldo())
