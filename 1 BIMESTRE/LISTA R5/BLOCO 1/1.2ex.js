@@ -1,12 +1,12 @@
 class Produto{
     constructor(nome,preco,estoque){
-        this._nome = nome
-        this._preco = preco
-        this._estoque = estoque
+        this.nome = nome
+        this.preco = preco
+        this.estoque = estoque
     }
 
     disponivel(){
-        if (this._estoque > 0){
+        if (this.estoque > 0){
             return true
         }
         else {
@@ -16,9 +16,9 @@ class Produto{
 
     exibir(){
         if (this.disponivel()){
-            console.log(`${this._nome} - R$${this._preco.toFixed(2)} - Em estoque`)
+            console.log(`${this.nome} - R$${this.preco.toFixed(2)} - Em estoque`)
         } else {
-            console.log(`${this._nome} - R$${this._preco.toFixed(2)} - Fora de estoque`)
+            console.log(`${this.nome} - R$${this.preco.toFixed(2)} - Fora de estoque`)
         } 
     }
 

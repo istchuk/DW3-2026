@@ -1,25 +1,25 @@
 class ContaBancaria{
     constructor(nome, saldoInicial){
-        this._titular = nome
-        this._saldo = saldoInicial
+        this.titular = nome
+        this.saldo = saldoInicial
     }
 
     depositar(valor){
-        this._saldo += valor
+        this.saldo += valor
     }
 
     sacar(valor){
-        if (valor > this._saldo){
+        if (valor > this.saldo){
             console.log("Saldo insuficiente")
             return
         }
         else{
-           this._saldo -= valor
+           this.saldo -= valor
         }
     }
 
     exibirSaldo(){
-        return `Titular: ${this._titular} | Saldo: ${this._saldo.toFixed(2)}`
+        return `Titular: ${this.titular} | Saldo: ${this.saldo.toFixed(2)}`
     }
 }
 

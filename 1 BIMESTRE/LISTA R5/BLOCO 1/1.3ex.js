@@ -1,20 +1,20 @@
 class Aluno{
     constructor(nome, notas){
-        this._nome = nome
-        this._notas = []
+        this.nome = nome
+        this.notas = []
     }
 
     adicionarNota(nota){
-        this._notas.push(nota)
+        this.notas.push(nota)
     }
 
     calcularMedia(){
         let soma = 0    
-        for (let i = 0; i < this._notas.length; i++){
-            soma += this._notas[i]
+        for (let i = 0; i < this.notas.length; i++){
+            soma += this.notas[i]
         }
 
-        const media = soma / this._notas.length
+        const media = soma / this.notas.length
 
         return media
     }
@@ -22,7 +22,7 @@ class Aluno{
     situacao(){
         const media = this.calcularMedia()
 
-        if (this._notas.length === 0) return 0
+        if (this.notas.length === 0) return 0
         if (media >= 6){
             return 'Aprovado'
         } else {
@@ -31,7 +31,7 @@ class Aluno{
     }
 
     exibir(){
-        console.log(`${this._nome} | Média: ${this.calcularMedia().toFixed(2)} | Situação: ${(this.situacao())}`)
+        console.log(`${this.nome} | Média: ${this.calcularMedia().toFixed(2)} | Situação: ${(this.situacao())}`)
     }
 
 }

@@ -1,10 +1,10 @@
 class Carrinho{
     constructor(){
-        this._itens = []
+        this.itens = []
     }
 
     adicionar(nome, preco, quantidade){
-        this._itens.push({
+        this.itens.push({
             nome: nome,
             preco: preco,
             quantidade: quantidade
@@ -12,13 +12,13 @@ class Carrinho{
     }
 
     remover(nome){
-        this._itens = this._itens.filter(item => item.nome !== nome)
+        this.itens = this.itens.filter(item => item.nome !== nome)
     }
 
     total(){
         let soma = 0
-        for (let i = 0; i < this._itens.length; i++) {
-            soma += this._itens[i].preco * this._itens[i].quantidade
+        for (let i = 0; i < this.itens.length; i++) {
+            soma += this.itens[i].preco * this.itens[i].quantidade
         }
         return `Total: R$${soma.toFixed(2)}`
     }
@@ -26,8 +26,8 @@ class Carrinho{
     exibir(){
         let resultado = ''
 
-        for(let i = 0; i < this._itens.length; i++){
-            resultado += `${this._itens[i].quantidade}x ${this._itens[i].nome} - R$${this._itens[i].preco.toFixed(2)}\n`
+        for(let i = 0; i < this.itens.length; i++){
+            resultado += `${this.itens[i].quantidade}x ${this.itens[i].nome} - R$${this.itens[i].preco.toFixed(2)}\n`
         }
 
         return resultado

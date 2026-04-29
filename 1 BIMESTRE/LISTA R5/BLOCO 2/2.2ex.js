@@ -1,34 +1,34 @@
 class Placar{
     constructor(timeCasa, timeVisitante, golsCasa, golsVisitante){
-        this._timeCasa = timeCasa
-        this._timeVisitante = timeVisitante
-        this._golsCasa = 0
-        this._golsVisitante = 0
+        this.timeCasa = timeCasa
+        this.timeVisitante = timeVisitante
+        this.golsCasa = 0
+        this.golsVisitante = 0
     }
 
     marcarGol(time){
-        if (time === this._timeVisitante) {
-            this._golsVisitante += 1
-            return this._golsVisitante
-        } else if (time === this._timeCasa) {
-            this._golsCasa += 1
-            return this._golsCasa
+        if (time === this.timeVisitante) {
+            this.golsVisitante += 1
+            return this.golsVisitante
+        } else if (time === this.timeCasa) {
+            this.golsCasa += 1
+            return this.golsCasa
         } else {
             return console.log('Time inválido.')
         }
     }
 
     exibir(){
-        return `${this._timeCasa} ${this._golsCasa} x ${this._golsVisitante} ${this._timeVisitante}`
+        return `${this.timeCasa} ${this.golsCasa} x ${this.golsVisitante} ${this.timeVisitante}`
     }
 
     resultado(){
-        if (this._golsCasa > this._golsVisitante){
-            return `Vitória do ${this._timeCasa}!`  
-        } else if ((this._golsCasa) == (this._golsVisitante)){
+        if (this.golsCasa > this.golsVisitante){
+            return `Vitória do ${this.timeCasa}!`  
+        } else if ((this.golsCasa) == (this.golsVisitante)){
             return 'Empate!'
         } else {
-            return `Viória do ${this._timeVisitante}`
+            return `Viória do ${this.timeVisitante}`
         }
     }
 }
