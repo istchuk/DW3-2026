@@ -1,3 +1,5 @@
+import client from '../database/clients.js'
+
 class TarefaRepository {
   constructor() {
     this.tarefas = [
@@ -8,13 +10,26 @@ class TarefaRepository {
   }
 
   async buscarTodos() {
-    console.log("Repository: buscarTodos chamado")
-    return this.tarefas
+  const resultado = await client.query(`
+    SELECT
+      t.id,
+      t.descricao,
+      t.concluido,
+      t.criada_em,
+      t.projeto_id,
+      p.nome AS projeto_nome
+    FROM tarefas t
+    LEFT JOIN projetos p
+      ON p.id = t.projeto_id
+    ORDER BY t.id
+  `)
+
+  return resultado.rows
   }
   
   async listarPendentes() {
   return this.tarefas.filter(t => !t.concluido)
-}
+  }
 
   async buscarPorId(id) {
     console.log("Repository: buscarPorId chamado")
@@ -22,13 +37,16 @@ class TarefaRepository {
   }
 
   async salvar(tarefa) {
-    console.log("Repository: salvar chamado")
-    const novoId = this.tarefas.length > 0
-      ? this.tarefas[this.tarefas.length - 1].id + 1
-      : 1
-    const novaTarefa = { id: novoId, ...tarefa }
-    this.tarefas.push(novaTarefa)
-    return novaTarefa
+    const resultado = await client.query(
+      `
+      INSERT INTO tarefas (descricao, concluido, projeto_id)
+      VALUES ($1, $2, $3)
+      RETURNING id, descricao, concluido, criada_em, projeto_id
+    `,
+      [tarefa.descricao, tarefa.concluido, tarefa.projetoId]
+    )
+
+    return resultado.rows[0]
   }
 
   async atualizar(id, dadosAtualizados) {

@@ -12,14 +12,24 @@ class TarefaController {
 
   async criarTarefa(request, reply) {
     console.log("Controller: criarTarefa chamado")
-    const { descricao } = request.body
+    const { descricao, projetoId } = request.body
     if (!descricao || descricao.trim() === '') {
       return reply.status(400).send({
         status: 'error',
         message: 'A descrição da tarefa é obrigatória'
       })
     }
-    const novaTarefa = await this.service.criar(descricao)
+
+    if (!projetoId) {
+      return reply.status(400).send({
+        status: 'error',
+        message: 'O projeto é obrigatório'
+      })
+    }
+    const novaTarefa = await this.service.criar({
+      descricao,
+      projetoId
+    })
     return reply.status(201).send(novaTarefa)
   }
 

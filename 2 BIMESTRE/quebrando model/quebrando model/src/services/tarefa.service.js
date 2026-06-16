@@ -20,14 +20,33 @@ class TarefaService {
       resultado = resultado.filter(t => t.concluido === concluidoBool)
     }
 
+    resultado = resultado.map(t => ({
+      id: t.id,
+      descricao: t.descricao,
+      concluido: t.concluido,
+      criada_em: t.criada_em,
+      projeto: t.projeto_id
+        ? {
+          id: t.projeto_id,
+          nome: t.projeto_nome
+        }
+        : null
+    }))
+
     return resultado
   }
 
-  async criar(descricao) {
+  async criar(dados) {
     console.log("Service: criar chamado")
-    const novaTarefa = await this.repository.salvar({ descricao, concluido: false })
+
+    const novaTarefa = await this.repository.salvar({
+      descricao: dados.descricao,
+      concluido: false,
+      projetoId: dados.projetoId
+    })
+
     return novaTarefa
-  }
+}
 
    async listarPendentes() {
   console.log("Service: listarPendentes chamado")
