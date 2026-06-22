@@ -32,10 +32,35 @@ class TarefaRepository {
   }
 
   async buscarPorId(id) {
-    console.log("Repository: buscarPorId chamado")
-    return this.tarefas.find(t => t.id === id) ?? null
-  }
+  const resultado = await client.query(`
+    SELECT
+      t.id,
+      t.descricao,
+      t.concluido,
+      t.criada_em,
+      t.projeto_id,
+      tg.nome AS tag_nome
+    FROM tarefas t
+    LEFT JOIN tarefas_tags tt
+      ON tt.tarefa_id = t.id
+    LEFT JOIN tags tg
+      ON tg.id = tt.tag_id
+    WHERE t.id = $1
+  `, [id])
 
+  if (resultado.rows.length === 0) return null
+
+  return {
+    id: resultado.rows[0].id,
+    descricao: resultado.rows[0].descricao,
+    concluido: resultado.rows[0].concluido,
+    criada_em: resultado.rows[0].criada_em,
+    projeto_id: resultado.rows[0].projeto_id,
+    tags: resultado.rows
+      .filter(r => r.tag_nome)
+      .map(r => r.tag_nome)
+  }
+}
   async salvar(tarefa) {
     const resultado = await client.query(
       `
